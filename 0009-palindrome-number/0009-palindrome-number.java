@@ -1,12 +1,19 @@
 class Solution {
     public boolean isPalindrome(int x) {
-        String str = String.valueOf(x);
-
-        for(int i =0;i<str.length();i++){
-            if(str.charAt(i)!=str.charAt(str.length()-i-1)){
-                return false;
-            }
+        if(x<0){
+            return false;
         }
-        return true;
+        int num = x;
+        int rev = 0;
+        while(x!=0){
+            int rem = x%10;
+            rev = rev*10+rem;
+            x/=10;
+        }
+        if(num==rev){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
