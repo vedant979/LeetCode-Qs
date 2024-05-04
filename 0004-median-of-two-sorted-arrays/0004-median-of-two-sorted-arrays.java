@@ -1,60 +1,45 @@
-import java.util.*;
 class Solution {
-    public double findMedianSortedArrays(int[] num1, int[] num2) {
-        List<Integer> a = new ArrayList<>();
-        int len = 0;
-        if(num1.length>=num2.length){
-            len = num1.length;
-        }else{
-            len = num2.length;
-        }
-        int i = 0;
-        int j = 0;
-
-        while(i<num1.length && j<num2.length){
-                if(num1[i]<num2[j]){
-                    a.add(num1[i]);
-                    i++;
-                }else if(num1[i]==num2[j]){
-                    a.add(num1[i]);
-                    a.add(num2[j]);
-                    i++;
-                    j++;
-                }
-                else{
-                    a.add(num2[j]);
-                    j++;
-                }
-        }
-        if(i!=num1.length){
-           for(int k = i;k<num1.length;k++){
-               a.add( num1[k]);
-           }
-        }
-        if(j!=num2.length){
-           for(int k = j;k<num2.length;k++){
-               a.add(num2[k]);
-           }
-        }
-        int size = a.size();
-        // for(int k=0;k<a.size();k++){
-        //     System.out.print(a.get(k)+" ");
-        // }
-        if(size%2==0){
-            if(a.get(size/2)==0 && a.get(size/2-1)==0){
-                return 0;
+    public double findMedianSortedArrays(int[] a1, int[] a2) {
+        int m = a1.length;
+        int n = a2.length;
+        int[]arr = new int[m+n];
+        double median=0;
+        int i =0;
+        int j=0;
+        int k=0;
+        while(i<m && j<n){
+            if(a1[i]<a2[j]){
+                arr[k++] = a1[i];
+                i++;
+            }else if(a1[i]==a2[j]){
+                arr[k++] = a1[i];
+                arr[k++] = a2[j];
+                i++;
+                j++;
+            }else{
+                arr[k++] = a2[j];
+                j++;
             }
-            double a1 = a.get(size/2);
-            double a2 = a.get(size/2-1);
-            System.out.print(a1+" "+a2);
+        }
+        if(i<m){
+            for(int x=i;x<m;x++){
+                arr[k++] = a1[x];
+            }
+        }
+        else if(j<n){
+            for(int x=j;x<n;x++){
+                arr[k++] = a2[x];
+            }
+        }
+        int len = arr.length;
+        // System.out.println(arr[(0+(arr.length-1-0)/2)]+" "+arr[arr.length/2]+arr[arr.length/2-1])/2);
+        if(len%2==0){
+            return (double)(arr[arr.length/2]+arr[arr.length/2-1])/2;
 
-                return (a1+a2)/2;
-            
-            // return (a.get(size/2)+a.get(size/2-1))/2;
         }else{
-            return (double)(a.get(size/2));
-        } 
+            return (double)arr[(0+(arr.length-1-0)/2)];
 
-        // return -1;
+        }
+         
     }
 }
